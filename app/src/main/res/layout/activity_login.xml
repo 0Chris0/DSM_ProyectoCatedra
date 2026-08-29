@@ -76,43 +76,115 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="#1a1c1c"
             android:inputType="textPassword"
             android:paddingVertical="8dp"
             android:textColor="#1a1c1c" />
 
-        <!-- REQUISITO AÑADIDO: CheckBox para recordar datos -->
-        <CheckBox
-            android:id="@+id/cbRemember"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recordar mis datos"
-            android:textColor="#1a1c1c"
-            android:buttonTint="#ffd700"
-            android:textStyle="bold" />
-
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            
+            <!-- REQUISITO AÑADIDO: CheckBox para recordar datos -->
+            <CheckBox
+                android:id="@+id/cbRemember"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Recordar mis datos"
+                android:textColor="#1a1c1c"
+                android:buttonTint="#ffd700"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            
+            <!-- Boton para simular recuperacion de contraseña-->
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Olvidé mi contraseña"
+                android:textColor="#1a1c1c"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            
+        </LinearLayout>
+        
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
             android:text="INICIAR SESIÓN"
             android:textColor="#705e00"
             android:textSize="14sp"
             android:textStyle="bold"
             app:backgroundTint="#ffd700"
             app:cornerRadius="4dp" />
+        
+        <!-- Autenticacion por Terceros -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:text="O inicia sesión con"
+            android:textColor="#757575"
+            android:textSize="12sp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Google -->
+            <Button
+                android:id="@+id/btnGoogle"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Google"
+                android:textColor="#1a1c1c"
+                android:textSize="12sp" />
+
+            <!-- GitHub -->
+            <Button
+                android:id="@+id/btnGithub"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="GitHub"
+                android:textColor="#1a1c1c"
+                android:textSize="12sp" />
+
+            <!-- Outlook -->
+            <Button
+                android:id="@+id/btnOutlook"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outlook"
+                android:textColor="#1a1c1c"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvCreateUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Crear usuario"
             android:textColor="#1a1c1c"
             android:textStyle="bold" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
