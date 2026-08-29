@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:padding="24dp"
+    tools:context=".LoginActivity">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@drawable/logo_wicho"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="48dp"
+        android:text="Iniciar sesión"
+        android:textColor="#1a1c1c"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/llForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+
+    <!-- Contenedor del Formulario -->
+    <LinearLayout
+        android:id="@+id/llForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Usuario"
+            android:textColor="#1a1c1c"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="#1a1c1c"
+            android:inputType="textEmailAddress"
+            android:paddingVertical="8dp"
+            android:textColor="#1a1c1c" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Contraseña"
+            android:textColor="#1a1c1c"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#1a1c1c"
+            android:inputType="textPassword"
+            android:paddingVertical="8dp"
+            android:textColor="#1a1c1c" />
+
+        <!-- REQUISITO AÑADIDO: CheckBox para recordar datos -->
+        <CheckBox
+            android:id="@+id/cbRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recordar mis datos"
+            android:textColor="#1a1c1c"
+            android:buttonTint="#ffd700"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:text="INICIAR SESIÓN"
+            android:textColor="#705e00"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="#ffd700"
+            app:cornerRadius="4dp" />
+
+        <TextView
+            android:id="@+id/tvCreateUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Crear usuario"
+            android:textColor="#1a1c1c"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
