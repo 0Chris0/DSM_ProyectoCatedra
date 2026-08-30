@@ -138,6 +138,17 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- ********************************************* -->
+            <!-- Boton para cerrar la sesion -->
+            <Button
+                android:id="@+id/btnLogoutMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CERRAR SESIÓN"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#d32f2f"
+                android:textColor="#ffffff" />
+
         </LinearLayout>
     </ScrollView>
 
