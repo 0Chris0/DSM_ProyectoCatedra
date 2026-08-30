@@ -37,7 +37,24 @@ class LoginActivity : AppCompatActivity() {
             binding.cbRemember.isChecked = true
         }
 
-        // Subrayar el texto de "Crear usuario" para que se vea como enlace
+        // subyara el texto como un link web
+        binding.tvForgotPassword.paintFlags = binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        // event_clic para recuperar contraseña
+        binding.tvForgotPassword.setOnClickListener {
+            val emailIngresado = binding.etEmail.text.toString()
+
+            // llamando a la simulación de Recuperar contraseña dentro de AuthRepository
+            authRepository.sendPasswordResetEmail(emailIngresado) { exito, mensaje ->
+                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+            if (exito)
+            {
+                binding.etEmail.text?.clear()   //limpia el campo de email/usuario
+            }
+            }
+        }
+
+        // subyara para que se muestre como un link
         binding.tvCreateUser.paintFlags = binding.tvCreateUser.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         // Configurar el click del botón

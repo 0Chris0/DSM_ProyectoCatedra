@@ -11,7 +11,7 @@ class AuthRepository
     fun sendPasswordResetEmail(email: String, callback: (Boolean, String?) -> Unit) {
         val emailClean = email.trim()
         if (emailClean.isEmpty()) {
-            callback(false, "Por favor, ingresa tu correo electrónico")
+            callback(false, "Por favor, ingresa tu correo electrónico en el campo Usuario")
             return
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(emailClean).matches()) {
