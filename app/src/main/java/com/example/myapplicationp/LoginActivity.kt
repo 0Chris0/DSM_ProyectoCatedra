@@ -17,7 +17,12 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+/* CORREGIR ESTA PARTE DEL CODIGO, QUE GENERA ERROR AL INICIAR EN MOVIL
+        // Evento clic para el enlace de Crear Usuario
+        binding.tvCreateUser.setOnClickListener {
+            mostrarDialogoRegistro()
+        }
+*/
         // Conectar ViewBinding
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -96,6 +101,55 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun mostrarDialogoRegistro() {
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Crear Nueva Cuenta")
+
+        // Inflar o crear un layout simple para el diálogo con dos inputs (Email y Password)
+        val layout = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(50, 40, 50, 10)
+        }
+
+        val inputEmail = android.widget.EditText(this).apply {
+            hint = "Correo electrónico"
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        }
+        layout.addView(inputEmail)
+
+        val inputPassword = android.widget.EditText(this).apply {
+            hint = "Contraseña (mínimo 6 caracteres)"
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD or android.text.InputType.TYPE_CLASS_TEXT
+        }
+        layout.addView(inputPassword)
+
+        builder.setView(layout)
+
+        builder.setPositiveButton("Registrarse") { _, _ ->
+            val email = inputEmail.text.toString().trim()
+            val password = inputPassword.text.toString().trim()
+
+            if (email.isNotEmpty() && password.length >= 6) {
+                // Llamamos al método de registro real en Firebase
+                authRepository.registerUser(email, password) { exito, mensaje ->
+                    Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+                    if (exito) {
+                        // Opcional: autocompleta el campo de login principal con el nuevo usuario
+                        binding.etEmail.setText(email)
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Verifica que el correo sea válido y la contraseña tenga al menos 6 caracteres", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
     }
 
     private fun validarEntradas() {
