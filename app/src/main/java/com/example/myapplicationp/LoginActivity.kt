@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
             validarEntradas()
         }
 
+        /*
         binding.btnGoogle.setOnClickListener {
             authRepository.handleGoogleSignInResult("token_de_google_123") { exito, mensaje ->
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
@@ -71,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+        */
 
         // Botón GitHub
         binding.btnGithub.setOnClickListener {
@@ -99,27 +101,29 @@ class LoginActivity : AppCompatActivity() {
     private fun validarEntradas() {
         val usuario = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
-        val recordarStatus = binding.cbRemember.isChecked // Estado del checkbox
+        val recordarStatus = binding.cbRemember.isChecked
 
-        // validar que ponga cualquier nombre (que no esté vacío)
         if (usuario.isEmpty()) {
-            binding.etEmail.error = "Ingresa tu usuario"
+            binding.etEmail.error = "Ingresa tu correo"
             binding.etEmail.requestFocus()
             return
         }
 
-        // validar que ponga una contraseña válida
         if (password.isEmpty() || password.length < 6) {
             binding.etPassword.error = "La contraseña debe tener al menos 6 caracteres"
             binding.etPassword.requestFocus()
             return
         }
 
-        // PERSISTENCIA: Si pasa las validaciones, guarda los datos localmente
-        sessionManager.saveSession(usuario, password, recordarStatus)
-
-        // Navegar al Menú Principal (MainActivity)
-        irAMainActivity()
+        // Autenticación real contra Firebase
+        authRepository.loginUser(usuario, password) { exito, mensaje ->
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+            if (exito) {
+                // Guardar localmente si el CheckBox de recordar estaba activo
+                sessionManager.saveSession(usuario, password, recordarStatus)
+                irAMainActivity()
+            }
+        }
     }
 
     private fun irAMainActivity() {
