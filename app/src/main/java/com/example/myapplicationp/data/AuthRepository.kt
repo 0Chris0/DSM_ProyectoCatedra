@@ -2,6 +2,7 @@ package com.example.myapplicationp.data
 
 import android.util.Patterns
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthRepository
 {
@@ -53,6 +54,20 @@ class AuthRepository
             }
             .addOnFailureListener { exception ->
                 callback(false, exception.localizedMessage ?: "Error al registrarse")
+            }
+    }
+
+    /**
+     * Autenticación con Google Firebase usando el ID de token de Google
+     */
+    fun signInWithGoogleCredential(idToken: String, callback: (Boolean, String?) -> Unit) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth.signInWithCredential(credential)
+            .addOnSuccessListener {
+                callback(true, "Accediendo con Google...\n¡Bienvenido!")
+            }
+            .addOnFailureListener { exception ->
+                callback(false, exception.localizedMessage ?: "Error al iniciar sesión con Google")
             }
     }
 
