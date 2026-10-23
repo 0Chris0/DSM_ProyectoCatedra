@@ -5,8 +5,19 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.lifecycleScope
 import com.example.myapplicationp.data.AuthRepository
 import com.example.myapplicationp.databinding.ActivityLoginBinding
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import kotlinx.coroutines.launch
+import java.util.UUID
 
 class LoginActivity : AppCompatActivity() {
 
@@ -68,19 +79,13 @@ class LoginActivity : AppCompatActivity() {
             validarEntradas()
         }
 
-        /*
+        // Boton Google --------------------------------------------------------------------------
         binding.btnGoogle.setOnClickListener {
-            authRepository.handleGoogleSignInResult("token_de_google_123") { exito, mensaje ->
-                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
-                if (exito) {
-                    sessionManager.saveSession("usuario.google@gmail.com", "123456", false)
-                    irAMainActivity()
-                }
-            }
+            singInWithGoogle()
         }
-        */
 
-        // Botón GitHub
+
+        // Botón GitHub --------------------------------------------------------------------------
         binding.btnGithub.setOnClickListener {
             authRepository.handleGitHubSignIn { exito, mensaje ->
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
@@ -102,6 +107,67 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    // Metodo para iniciar sesion con Google -----------------------------------------------------------------------------
+    private fun singInWithGoogle() {
+        // Nonce de seguridad requerido por Google Credential Manager
+        val rawNonce = UUID.randomUUID().toString()
+        val bytes = rawNonce.toByteArray(Charsets.UTF_8)
+        val md = java.security.MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)   //digest es un arreglo de bytes
+        val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }    //hasedNonce es un string que contiene el hash del nonce
+
+
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setServerClientId("394308242017-rhe5ak1uhcuu3bbdptkchfptohgrvssf.apps.googleusercontent.com")  //client_id_3
+            .setFilterByAuthorizedAccounts(false) //es para que no filtre por cuentas de Google
+            .setNonce(hashedNonce)  //para evitar ataques de replay
+            .build()
+
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        val credentialManager = CredentialManager.create(this)  //este nos sirve para guardar las credenciales en el dispositivo
+
+        lifecycleScope.launch { // Lanzamos la solicitud en una corrutina vinculada al ciclo de vida
+            try {
+                val result = credentialManager.getCredential(
+                    request = request,
+                    context = this@LoginActivity
+                )
+                handleGoogleCredentialResponse(result)
+            }
+            catch (e: GetCredentialException) { //en caso de error, mostramos un mensaje
+                Toast.makeText(this@LoginActivity, "Error al iniciar sesión con Google", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+    }   //fin de la funcion singInWithGoogle() 👌
+    private fun handleGoogleCredentialResponse(result: GetCredentialResponse) {
+        when (val credential = result.credential) {
+            is CustomCredential -> {
+                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+                    try {
+                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                        val googleIdToken = googleIdTokenCredential.idToken
+
+                        // Enviamos el token real a nuestro AuthRepository
+                        authRepository.signInWithGoogleCredential(googleIdToken) { exito, mensaje ->
+                            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+                            if (exito) {
+                                sessionManager.saveSession(googleIdTokenCredential.id, "", true)
+                                irAMainActivity()
+                            }
+                        }
+                    } catch (e: GoogleIdTokenParsingException) {
+                        Toast.makeText(this, "Error al procesar las credenciales", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 
 
