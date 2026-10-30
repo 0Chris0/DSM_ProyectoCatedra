@@ -16,7 +16,39 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.btnPromoAction.setOnClickListener {
+            navigateToMenu(1)
+        }
+
+        binding.cardCatBurgers.setOnClickListener {
+            navigateToMenu(1)
+        }
+
+        binding.cardCatSides.setOnClickListener {
+            navigateToMenu(2)
+        }
+
+        binding.cardCatDrinks.setOnClickListener {
+            navigateToMenu(3)
+        }
+
+        binding.cardCatDesserts.setOnClickListener {
+            navigateToMenu(4)
+        }
+
         return binding.root
+    }
+
+    private fun navigateToMenu(categoryFilter: Int) {
+        val menuFragment = MenuFragment().apply {
+            arguments = Bundle().apply {
+                putInt("FILTER_CATEGORY", categoryFilter)
+            }
+        }
+        (activity as? MainActivity)?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.fragmentContainer, menuFragment)
+            ?.commit()
     }
 
     override fun onDestroyView() {

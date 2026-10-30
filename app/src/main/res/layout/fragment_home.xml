@@ -9,46 +9,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center_horizontal">
+        android:padding="20dp">
 
-        <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/logo_wicho"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="Wicho Burger Logo" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="¡Bienvenido a Wicho Burger!"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#1a1c1c"
-            android:gravity="center"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Las mejores hamburguesas artesanales de la ciudad, elaboradas con ingredientes 100% frescos."
-            android:textSize="15sp"
-            android:textColor="#5e5e5e"
-            android:gravity="center"
-            android:layout_marginBottom="24dp"/>
-
+        <!-- TARJETA DE ESTADO DEL RESTAURANTE -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
+            app:cardElevation="1dp"
             app:strokeWidth="1dp"
-            app:strokeColor="#e0d6b6"
-            app:cardBackgroundColor="#fffdf0"
-            android:layout_marginBottom="20dp">
+            app:strokeColor="#e0e0e0"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/logo_wicho"
+                    android:background="@drawable/bg_badge"
+                    android:padding="6dp"
+                    android:contentDescription="Logo"
+                    android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🟢 Abierto ahora · Cierra 10:00 PM"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#2e7d32"
+                        android:layout_marginBottom="2dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⏱️ 20-30 min  •  ⭐ 4.8 (320+ opiniones)"
+                        android:textSize="12sp"
+                        android:textColor="#5e5e5e"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- BANNER DE PROMOCIÓN -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp"
+            app:cardBackgroundColor="#1a1c1c"
+            android:layout_marginBottom="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,33 +82,161 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔥 Promoción del Día"
-                    android:textSize="18sp"
+                    android:text="⚡ OFERTA ESPECIAL DEL DÍA"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="#705e00"
+                    android:textColor="#ffd700"
                     android:layout_marginBottom="6dp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2x1 en hamburguesas La Clásica todos los miércoles. ¡Pide la tuya ahora!"
-                    android:textSize="14sp"
-                    android:textColor="#333333"
-                    android:lineSpacingExtra="4dp"/>
+                    android:text="¡2x1 en Hamburguesas Clásicas!"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pide una y llévate la segunda totalmente gratis hoy miércoles en Wicho Burger."
+                    android:textSize="13sp"
+                    android:textColor="#b0b0b0"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnPromoAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="¡APROVECHAR PROMO!"
+                    android:textColor="#705e00"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#ffd700"
+                    app:cornerRadius="10dp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <Button
-            android:id="@+id/btnExploreMenu"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="VER MENÚ COMPLETO"
-            android:textColor="#705e00"
-            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:text="Categorías Destacadas"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="#ffd700"
-            app:cornerRadius="12dp"
-            android:elevation="2dp"/>
+            android:textColor="#1a1c1c"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="4dp"/>
+
+        <!-- GRID DE CATEGORÍAS CLICKEABLES -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false">
+
+            <!-- 1. Hamburguesas -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCatBurgers"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#e0e0e0"
+                app:cardBackgroundColor="#ffffff"
+                android:clickable="true"
+                android:focusable="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍔" android:textSize="32sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hamburguesas" android:textStyle="bold" android:textColor="#1a1c1c" android:textSize="15sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 2. Papas & Sides -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCatSides"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#e0e0e0"
+                app:cardBackgroundColor="#ffffff"
+                android:clickable="true"
+                android:focusable="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍟" android:textSize="32sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Papas &amp; Sides" android:textStyle="bold" android:textColor="#1a1c1c" android:textSize="15sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 3. Bebidas -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCatDrinks"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#e0e0e0"
+                app:cardBackgroundColor="#ffffff"
+                android:clickable="true"
+                android:focusable="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🥤" android:textSize="32sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bebidas" android:textStyle="bold" android:textColor="#1a1c1c" android:textSize="15sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 4. Postres -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCatDesserts"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#e0e0e0"
+                app:cardBackgroundColor="#ffffff"
+                android:clickable="true"
+                android:focusable="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍨" android:textSize="32sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Postres" android:textStyle="bold" android:textColor="#1a1c1c" android:textSize="15sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </GridLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -5,8 +5,18 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.lifecycleScope
 import com.example.myapplicationp.data.AuthRepository
 import com.example.myapplicationp.databinding.ActivityLoginBinding
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -68,17 +78,10 @@ class LoginActivity : AppCompatActivity() {
             validarEntradas()
         }
 
-        /*
+        // Botón Google con Credential Manager y Firebase
         binding.btnGoogle.setOnClickListener {
-            authRepository.handleGoogleSignInResult("token_de_google_123") { exito, mensaje ->
-                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
-                if (exito) {
-                    sessionManager.saveSession("usuario.google@gmail.com", "123456", false)
-                    irAMainActivity()
-                }
-            }
+            signInWithGoogle()
         }
-        */
 
         // Botón GitHub
         binding.btnGithub.setOnClickListener {
@@ -104,7 +107,57 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun signInWithGoogle() {
+        val serverClientId = getString(R.string.default_web_client_id)
 
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false)
+            .setServerClientId(serverClientId)
+            .build()
+
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        val credentialManager = CredentialManager.create(this)
+
+        lifecycleScope.launch {
+            try {
+                val result = credentialManager.getCredential(
+                    request = request,
+                    context = this@LoginActivity
+                )
+                handleGoogleCredential(result)
+            } catch (e: GetCredentialException) {
+                Toast.makeText(this@LoginActivity, "Error Google Sign-In: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun handleGoogleCredential(result: GetCredentialResponse) {
+        val credential = result.credential
+        if (credential is CustomCredential &&
+            credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+        ) {
+            try {
+                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                val googleIdToken = googleIdTokenCredential.idToken
+                val email = googleIdTokenCredential.id
+
+                authRepository.signInWithGoogleToken(googleIdToken, email) { exito, mensaje ->
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+                    if (exito) {
+                        sessionManager.saveSession(email, "google_auth", false)
+                        irAMainActivity()
+                    }
+                }
+            } catch (e: GoogleIdTokenParsingException) {
+                Toast.makeText(this, "Error al procesar credencial de Google", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "Tipo de credencial no soportado", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun validarEntradas() {
         val usuario = binding.etEmail.text.toString().trim()
@@ -123,7 +176,7 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // Autenticación real contra Firebase
+        // Autenticación real contra Firebase Auth
         authRepository.loginUser(usuario, password) { exito, mensaje ->
             Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             if (exito) {

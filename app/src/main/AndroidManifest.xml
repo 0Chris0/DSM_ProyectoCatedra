@@ -2,13 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplicationp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProyectoFase1">
+        android:theme="@style/Theme.ProyectoFase1"
+        android:usesCleartextTraffic="true">
 
         <!-- Pantalla 1: Login (Es la que arranca primero con el paquete correcto) -->
         <activity
@@ -29,6 +34,12 @@
         <!-- Pantalla 3: Registro (Se abre con enlace desde la pantalla del login) -->
         <activity
             android:name=".RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Pantalla 4: Detalle y Personalización de Producto -->
+        <activity
+            android:name=".BurgerDetailActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

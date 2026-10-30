@@ -6,200 +6,114 @@
     android:background="#f9f9f9">
 
     <LinearLayout
+        android:id="@+id/menuContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
+        <!-- CABECERA MODERNA Y ELEGANTE -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MENÚ DE HAMBURGUESAS"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nuestro Menú"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#1a1c1c"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wicho Burger"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#705e00"/>
+        </LinearLayout>
+
+        <!-- BARRA DE BÚSQUEDA EN TIEMPO REAL -->
+        <EditText
+            android:id="@+id/etSearchMenu"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="🔍 Buscar platillo, bebida, postre..."
+            android:inputType="text"
+            android:background="@drawable/bg_input_box"
+            android:paddingHorizontal="16dp"
+            android:textSize="14sp"
             android:textColor="#1a1c1c"
-            android:layout_marginBottom="14dp"
-            android:layout_marginStart="4dp"/>
+            android:layout_marginBottom="12dp"
+            android:autofillHints="name" />
 
-        <!-- TARJETA: LA CLÁSICA -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- CHIPS DE FILTRADO POR CATEGORÍA -->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="0dp"
-            android:layout_marginBottom="16dp">
+            android:scrollbars="none"
+            android:layout_marginBottom="14dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:background="#e8e8e8"
-                    android:src="@drawable/logo_wicho"
-                    android:contentDescription="La Clásica" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAll"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
+                    android:text="🔥 Todo"
+                    android:checked="true"
+                    android:textColor="#705e00"
+                    app:chipBackgroundColor="#ffd700"
+                    android:layout_marginEnd="8dp"/>
 
-                    <!-- Fila 1: Nombre y Precio -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="4dp">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBurgers"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍔 Hamburguesas"
+                    android:layout_marginEnd="8dp"/>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="LA CLÁSICA"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:textColor="#1a1c1c" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSides"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍟 Papas &amp; Sides"
+                    android:layout_marginEnd="8dp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="$12.00"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#705e00" />
-                    </LinearLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDrinks"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🥤 Bebidas"
+                    android:layout_marginEnd="8dp"/>
 
-                    <!-- Fila 2: Calificación y Descripción unificada -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="★ ★ ★ ★ ★  •  Carne 100% res, queso cheddar, lechuga, tomate y salsa secreta en pan brioche artesanal."
-                        android:textSize="13sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="10dp"
-                        android:lineSpacingExtra="3dp"/>
-
-                    <!-- Fila 3: Botón Compacto -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="end">
-
-                        <Button
-                            android:id="@+id/btnAddToCart1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:text="+ Añadir al carrito"
-                            android:textSize="12sp"
-                            android:textColor="#705e00"
-                            android:textStyle="bold"
-                            app:backgroundTint="#ffd700"
-                            app:cornerRadius="18dp"
-                            android:paddingHorizontal="14dp"
-                            android:insetTop="0dp"
-                            android:insetBottom="0dp"
-                            android:elevation="0dp"/>
-                    </LinearLayout>
-                </LinearLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDesserts"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍨 Postres"/>
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </HorizontalScrollView>
 
-        <!-- TARJETA: DOBLE TOCINO -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="0dp"
-            android:layout_marginBottom="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:background="#e8e8e8"
-                    android:src="@drawable/logo_wicho"
-                    android:contentDescription="Doble Tocino" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <!-- Fila 1: Nombre y Precio -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="4dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="DOBLE TOCINO"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:textColor="#1a1c1c" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="$15.00"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#705e00" />
-                    </LinearLayout>
-
-                    <!-- Fila 2: Calificación y Descripción unificada -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="★ ★ ★ ★ ☆  •  Doble carne de res, abundante tocino crujiente, doble queso cheddar y salsa BBQ ahumada."
-                        android:textSize="13sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="10dp"
-                        android:lineSpacingExtra="3dp"/>
-
-                    <!-- Fila 3: Botón Compacto -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="end">
-
-                        <Button
-                            android:id="@+id/btnAddToCart2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:text="+ Añadir al carrito"
-                            android:textSize="12sp"
-                            android:textColor="#705e00"
-                            android:textStyle="bold"
-                            app:backgroundTint="#ffd700"
-                            app:cornerRadius="18dp"
-                            android:paddingHorizontal="14dp"
-                            android:insetTop="0dp"
-                            android:insetBottom="0dp"
-                            android:elevation="0dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"/>
 
     </LinearLayout>
 </ScrollView>

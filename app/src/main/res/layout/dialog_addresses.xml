@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:padding="24dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:background="#d0d0d0"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📍 Direcciones de Entrega"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#1a1c1c"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Botón para solicitar GPS en vivo -->
+    <Button
+        android:id="@+id/btnRequestGpsLocation"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="🛰️ USAR MI UBICACIÓN GPS ACTUAL"
+        android:textColor="#1a1c1c"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:backgroundTint="#ffd700"
+        app:cornerRadius="10dp"
+        android:layout_marginBottom="20dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#e0e0e0"
+        app:cardBackgroundColor="#ffffff"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Casa Principal (Guardada)"
+                android:textStyle="bold"
+                android:textColor="#1a1c1c"
+                android:textSize="15sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvCurrentAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Col. Escalón, Av. Norte #123, San Salvador"
+                android:textColor="#5e5e5e"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/btnCloseAddresses"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="CERRAR"
+        android:textColor="#705e00"
+        android:textStyle="bold"
+        app:backgroundTint="#e8e8e8"
+        app:cornerRadius="12dp"/>
+
+</LinearLayout>

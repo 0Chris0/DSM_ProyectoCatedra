@@ -12,13 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplicationp.data.CartManager
+import com.example.myapplicationp.data.OrderModel
 import com.example.myapplicationp.databinding.FragmentOrdersBinding
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import java.util.Locale
 
 class OrdersFragment : Fragment() {
     private var _binding: FragmentOrdersBinding? = null
     private val binding get() = _binding!!
+    private var discountAmount = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,26 +31,65 @@ class OrdersFragment : Fragment() {
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
 
         binding.btnAddMore.setOnClickListener {
-            (activity as? MainActivity)?.let { mainActivity ->
-                mainActivity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, MenuFragment())
-                    .commit()
+            (activity as? MainActivity)?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, MenuFragment())
+                ?.commit()
+        }
+
+        binding.btnApplyPromo.setOnClickListener {
+            val code = binding.etPromoCode.text.toString().trim().uppercase(Locale.ROOT)
+            if (code == "WICHO2026") {
+                discountAmount = 3.00
+                Toast.makeText(requireContext(), "¡Cupón aplicado con éxito! -$3.00 de descuento", Toast.LENGTH_SHORT).show()
+                loadCartItems()
+            } else {
+                Toast.makeText(requireContext(), "Cupón inválido o expirado", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.btnProceedCheckout.setOnClickListener {
-            if (CartManager.getItems().isEmpty()) {
+            val cartItems = CartManager.getItems()
+            if (cartItems.isEmpty()) {
                 Toast.makeText(requireContext(), "El carrito está vacío", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            Toast.makeText(requireContext(), "¡Pedido pagado y procesado exitosamente! 🎉", Toast.LENGTH_LONG).show()
-            CartManager.clearCart()
-            loadCartItems()
-            (activity as? MainActivity)?.updateCartBadge()
+
+            val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: SessionManager(requireContext()).getSavedUsername() ?: "invitado@wichoburger.com"
+            val subtotal = CartManager.getSubtotal()
+            val tax = subtotal * 0.10
+            val shipping = 2.00
+            val total = (subtotal - discountAmount) + tax + shipping
+
+            val databaseRef = FirebaseDatabase.getInstance().getReference("orders")
+            val orderId = databaseRef.push().key ?: System.currentTimeMillis().toString()
+            val order = OrderModel(
+                orderId = orderId,
+                userEmail = userEmail,
+                items = cartItems.toList(),
+                subtotal = subtotal,
+                tax = tax,
+                shipping = shipping,
+                total = if (total > 0) total else 0.0
+            )
+
+            databaseRef.child(orderId).setValue(order)
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "¡Pedido guardado en Firebase Realtime Database! 🎉", Toast.LENGTH_LONG).show()
+                    CartManager.clearCart()
+                    discountAmount = 0.0
+                    binding.etPromoCode.text?.clear()
+                    loadCartItems()
+                    (activity as? MainActivity)?.updateCartBadge()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(requireContext(), "Error al guardar en base de datos: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                }
         }
 
         binding.btnCancelOrder.setOnClickListener {
             CartManager.clearCart()
+            discountAmount = 0.0
+            binding.etPromoCode.text?.clear()
             loadCartItems()
             (activity as? MainActivity)?.updateCartBadge()
             Toast.makeText(requireContext(), "Pedido cancelado", Toast.LENGTH_SHORT).show()
@@ -64,6 +107,7 @@ class OrdersFragment : Fragment() {
         if (cartItems.isEmpty()) {
             binding.tvEmptyCart.visibility = View.VISIBLE
             binding.tvSubtotal.text = "$0.00"
+            binding.tvDiscount.text = "-$0.00"
             binding.tvTax.text = "$0.00"
             binding.tvShipping.text = "$0.00"
             binding.tvTotal.text = "$0.00"
@@ -191,9 +235,11 @@ class OrdersFragment : Fragment() {
             val subtotal = CartManager.getSubtotal()
             val tax = subtotal * 0.10
             val shipping = if (cartItems.isNotEmpty()) 2.00 else 0.00
-            val total = subtotal + tax + shipping
+            var total = (subtotal - discountAmount) + tax + shipping
+            if (total < 0) total = 0.0
 
             binding.tvSubtotal.text = "$${String.format(Locale.getDefault(), "%.2f", subtotal)}"
+            binding.tvDiscount.text = "-$${String.format(Locale.getDefault(), "%.2f", discountAmount)}"
             binding.tvTax.text = "$${String.format(Locale.getDefault(), "%.2f", tax)}"
             binding.tvShipping.text = "$${String.format(Locale.getDefault(), "%.2f", shipping)}"
             binding.tvTotal.text = "$${String.format(Locale.getDefault(), "%.2f", total)}"

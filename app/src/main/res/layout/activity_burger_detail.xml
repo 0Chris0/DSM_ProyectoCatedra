@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:id="@+id/topBarDetail"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="#1a1c1c"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:src="@drawable/logo_wicho"
+            android:contentDescription="Logo" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_cart"
+            app:tint="#1a1c1c"
+            android:contentDescription="Cart" />
+    </LinearLayout>
+
+    <!-- CONTENT SCROLLVIEW -->
+    <ScrollView
+        android:id="@+id/scrollViewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topBarDetail"
+        app:layout_constraintBottom_toTopOf="@id/bottomActionLayout"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- HERO IMAGE CONTAINER -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/ivDetailImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="#e8e8e8"
+                    android:contentDescription="Product Image" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:id="@+id/tvDetailName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Producto"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#1a1c1c"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvDetailPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$12.00"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#705e00"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/tvDetailDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción detallada del producto..."
+                    android:textSize="14sp"
+                    android:textColor="#5e5e5e"
+                    android:layout_marginBottom="20dp"
+                    android:lineSpacingExtra="4dp"/>
+
+                <!-- TARJETA: OPCIONES DE BEBIDA -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardDrink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🥤 Tamaño de la Bebida"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/rgDrinkSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <RadioButton
+                                android:id="@+id/rbSizeMed"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Mediano 16oz (Estándar)"
+                                android:checked="true"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbSizeLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Grande 22oz (+ $0.75)"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbSizeXtra"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Jarra 32oz (+ $1.50)"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+                        </RadioGroup>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="❄️ Nivel de Hielo"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/rgIce"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/rbIceNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Hielo Normal"
+                                android:checked="true"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbIceLess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Poco Hielo"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbIceNone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Sin Hielo"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+                        </RadioGroup>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA: OPCIONES DE POSTRE -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardDessert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🍨 Extras para tu Postre"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbExtraIceCream"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bola de helado extra (+ $1.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbExtraFudge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jarabe fudge / chocolate extra (+ $0.75)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbExtraWhippedCream"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Crema batida extra (+ $0.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA: OPCIONES DE ENSALADA -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSalad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🥗 Extras y Aderezos para Ensalada"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSaladExtraChicken"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Porción extra de pollo a la parrilla (+ $2.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSaladExtraCheese"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Doble queso parmesano (+ $1.00)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSaladExtraCroutons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Crutones de pan de ajo extra (+ $0.75)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSaladExtraBacon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Trocitos de tocino crujiente (+ $1.25)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA: TIPO DE PAN (Hamburguesas) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardBread"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🍞 Elige el tipo de Pan"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/rgBread"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/rbBreadBrioche"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Pan Brioche Artesanal (Estándar)"
+                                android:checked="true"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbBreadIntegral"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Pan Integral (+ $0.50)"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbBreadGarlic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Pan de Ajo Especial (+ $0.75)"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+                        </RadioGroup>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA: CANTIDAD DE CARNES (Hamburguesas) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMeats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🥩 Cantidad de Carnes"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/rgMeats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/rbMeat1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="1 Carne (Estándar)"
+                                android:checked="true"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbMeat2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="2 Carnes (+ $2.50)"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbMeat3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="3 Carnes (+ $5.00)"
+                                android:textColor="#333333"
+                                android:paddingVertical="4dp"/>
+                        </RadioGroup>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA: ADICIONALES Y EXTRAS -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardExtras"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🥓 Adicionales y Extras"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbBacon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tocino extra (+ $1.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbCheese"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Queso cheddar extra (+ $1.00)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbJalapeno"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jalapeños extra (+ $0.75)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbEgg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Huevo frito (+ $1.25)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbOnion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cebolla caramelizada (+ $0.80)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA: SALSAS -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSauces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#e0e0e0"
+                    app:cardBackgroundColor="#ffffff"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🥫 Salsas Adicionales"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1a1c1c"
+                            android:layout_marginBottom="10dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSauceBBQ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Salsa BBQ Ahumada (+ $0.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSauceChipotle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mayonesa de Chipotle (+ $0.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+
+                        <CheckBox
+                            android:id="@+id/cbSauceRanch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Salsa Ranch (+ $0.50)"
+                            android:textColor="#333333"
+                            android:paddingVertical="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- NOTAS ESPECIALES -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notas especiales o exclusiones"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#1a1c1c"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etSpecialNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ej. Sin cebolla, sin pepinillos..."
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:background="@drawable/bg_input_box"
+                    android:padding="16dp"
+                    android:elevation="1dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- ESPACIADOR INFERIOR PARA QUE EL TECLADO NO CUBRA LAS NOTAS -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM ACTION BAR -->
+    <LinearLayout
+        android:id="@+id/bottomActionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        android:elevation="12dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Control de cantidad -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="12dp">
+
+            <Button
+                android:id="@+id/btnDetailMinus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="-"
+                android:textSize="18sp"
+                app:backgroundTint="#e8e8e8"
+                android:textColor="#1a1c1c"
+                app:cornerRadius="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+            <TextView
+                android:id="@+id/tvDetailQty"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#1a1c1c"/>
+
+            <Button
+                android:id="@+id/btnDetailPlus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="+"
+                android:textSize="18sp"
+                app:backgroundTint="#e8e8e8"
+                android:textColor="#1a1c1c"
+                app:cornerRadius="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddToCartDetail"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="AGREGAR • $12.00"
+            android:textColor="#705e00"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="#ffd700"
+            app:cornerRadius="14dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
