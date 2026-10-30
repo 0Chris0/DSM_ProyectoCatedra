@@ -74,15 +74,15 @@ class OrdersFragment : Fragment() {
 
             databaseRef.child(orderId).setValue(order)
                 .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "¡Pedido guardado en Firebase Realtime Database! 🎉", Toast.LENGTH_LONG).show()
+                    // Guardado silencioso en Realtime Database sin mostrar mensajes técnicos
                     CartManager.clearCart()
                     discountAmount = 0.0
                     binding.etPromoCode.text?.clear()
                     loadCartItems()
                     (activity as? MainActivity)?.updateCartBadge()
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(requireContext(), "Error al guardar en base de datos: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                .addOnFailureListener { _ ->
+                    // Fallo silencioso opcional
                 }
         }
 
