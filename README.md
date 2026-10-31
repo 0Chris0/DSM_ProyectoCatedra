@@ -1,37 +1,29 @@
-# Proyecto de Cátedra - Desarrollo de Software para Móvil (DSM)
-## Universidad Don Bosco — Escuela de Ingeniería en Computación
-### Fase final
-
----
-### WICHO BURGUER APP
----
-
-## 👥 Integrantes del Grupo
-
-| Integrante | Carné | % de Participación |
-| :--- | :---: | :---: |
-| Daniel Alexander Girón Cornejo | GC221469 | 100% |
-| Christian Augusto Maravilla Melendez | MM250405 | 100% |
-| Eduardo Josué Ortiz Orellana | OO172577 | 100% |
-| Mariana Maytee López Gómez | LG252169 | 100% |
+# 🍔 Proyecto de Cátedra: Wicho Burger (Fase Final)
+**Asignatura:** Desarrollo de Software para Móviles  
+**Docente:** Ing. Manuel Alexander Jiménez García  
 
 ---
 
-## 📱 Descripción del Proyecto
-Este repositorio contiene el desarrollo de la aplicación **Wicho**
-
-### Requerimientos e Implementaciones:
-- [x] **Captura de Credenciales:** Campos para usuario/correo y contraseña con control y validación de datos.
-- [x] **Persistencia de Sesión:** Integración de `SessionManager` para recordar el estado del usuario (*Remember me*).
-- [x] **Opciones OAuth y Recuperación:** Botones con recursos dedicados para Google, GitHub y Microsoft (`google.png`, `github.png`, `microsoft.png`), junto con enlace para recuperación de clave.
-- [x] **Navegación al Menú Principal:** Redirección tras autenticación hacia `MainActivity` (`activity_main.xml`), desplegando el logotipo oficial de la app (`logo_wicho.png`) y el menú base inicial.
+## 👥 Integrantes del Equipo y Participación
+* **Daniel Alexander Girón Cornejo** (Carné: GC221469) - 100% de participación
+* **Eduardo Josué Ortiz Orellana** (Carné: OO172577) - 100% de participación
+* **Christian Augusto Maravilla Melendez** (Carné: MM250405) - 100% de participación
+* **Mariana Maytee López Gómez** (Carné: LG252169) - 100% de participación
 
 ---
 
-## 🏗️ Estructura del Código Fuente
-* **`LoginActivity.kt` / `activity_login.xml`:** Manejo del ciclo de vida del login, validaciones en pantalla y captura de eventos.
-* **`MainActivity.kt` / `activity_main.xml`:** Pantalla principal post-login que aloja el logo de la aplicación (`logo_wicho.png`) y el contenedor del menú.
-* **`AuthRepository.kt`:** Capa de datos encargada de la lógica de autenticación y validación de credenciales.
-* **`SessionManager.kt`:** Administración de almacenamiento persistente para la sesión activa.
+## 📱 Descripción General de la Aplicación
+Aplicación móvil desarrollada en Android (Kotlin / Jetpack Compose / XML) para la gestión de pedidos, catálogo y autenticación de usuarios de **Wicho Burger**. 
+
+### ✨ Características Principales Implementadas:
+1. **Autenticación y Registro:** Pantallas de acceso (`LoginActivity`, `RegisterActivity`) con validación de credenciales, integración OAuth (Google, GitHub, Outlook) y persistencia local de sesión mediante `SessionManager` (SharedPreferences)[cite: 5].
+2. **Catálogo y Detalle de Productos:** Navegación por menús interactivos (`HomeFragment`, `MenuFragment`, `BurgerDetailActivity`), visualización de platillos, precios y descripciones[cite: 7, 11].
+3. **Gestión de Órdenes y Carrito:** Módulos dedicados (`CartManager`, `FavoritesManager`, `OrdersFragment`) para el control dinámico de compras y pedidos[cite: 11].
+4. **Manejo de Errores y Estados:** Retroalimentación amigable al usuario mediante notificaciones emergentes (*Toasts* y *Snackbars*) ante estados de éxito, errores de conexión o campos vacíos[cite: 1].
 
 ---
+
+## ⚙️ Indicadores de Cumplimiento de la Rúbrica
+* **Incorporación de observaciones del Avance 1:** Implementadas y corregidas para asegurar la estabilidad del sistema[cite: 1].
+* **Uso de Git y Repositorio estructurado:** Código fuente completo, limpio y modularizado.
+* **Aplicación 100% funcional:** Flujos completos de inicio de sesión, almacenamiento local/API y navegación fluidos[cite: 1].
