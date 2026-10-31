@@ -16,10 +16,10 @@
 Aplicación móvil desarrollada en Android (Kotlin / Jetpack Compose / XML) para la gestión de pedidos, catálogo y autenticación de usuarios de **Wicho Burger**. 
 
 ### ✨ Características Principales Implementadas:
-1. **Autenticación y Registro:** Pantallas de acceso (`LoginActivity`, `RegisterActivity`) con validación de credenciales, integración OAuth (Google, GitHub, Outlook) y persistencia local de sesión mediante `SessionManager` (SharedPreferences)[cite: 5].
-2. **Catálogo y Detalle de Productos:** Navegación por menús interactivos (`HomeFragment`, `MenuFragment`, `BurgerDetailActivity`), visualización de platillos, precios y descripciones[cite: 7, 11].
-3. **Gestión de Órdenes y Carrito:** Módulos dedicados (`CartManager`, `FavoritesManager`, `OrdersFragment`) para el control dinámico de compras y pedidos[cite: 11].
-4. **Manejo de Errores y Estados:** Retroalimentación amigable al usuario mediante notificaciones emergentes (*Toasts* y *Snackbars*) ante estados de éxito, errores de conexión o campos vacíos[cite: 1].
+1. **Autenticación y Registro:** Pantallas de acceso (`LoginActivity`, `RegisterActivity`) con validación de credenciales, integración OAuth (Google, GitHub, Outlook) y persistencia local de sesión mediante `SessionManager` (SharedPreferences).
+2. **Catálogo y Detalle de Productos:** Navegación por menús interactivos (`HomeFragment`, `MenuFragment`, `BurgerDetailActivity`), visualización de platillos, precios y descripciones.
+3. **Gestión de Órdenes y Carrito:** Módulos dedicados (`CartManager`, `FavoritesManager`, `OrdersFragment`) para el control dinámico de compras y pedidos.
+4. **Manejo de Errores y Estados:** Retroalimentación amigable al usuario mediante notificaciones emergentes (*Toasts* y *Snackbars*) ante estados de éxito, errores de conexión o campos vacíos.
 
 ---
 
