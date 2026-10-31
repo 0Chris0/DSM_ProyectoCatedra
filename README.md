@@ -1,6 +1,6 @@
 # Proyecto de Cátedra - Desarrollo de Software para Móvil (DSM)
 ## Universidad Don Bosco — Escuela de Ingeniería en Computación
-### Fase 1: Módulo de Autenticación y Navegación Base (15%)
+### Fase final
 
 ---
 ### WICHO BURGUER APP
@@ -18,7 +18,7 @@
 ---
 
 ## 📱 Descripción del Proyecto
-Este repositorio contiene el desarrollo de la primera fase de la aplicación **Wicho**, correspondiente al módulo de autenticación (**Login**) implementado en **Android Studio** utilizando **Kotlin** y diseño de interfaces en **XML**.
+Este repositorio contiene el desarrollo de la aplicación **Wicho**
 
 ### Requerimientos e Implementaciones:
 - [x] **Captura de Credenciales:** Campos para usuario/correo y contraseña con control y validación de datos.
